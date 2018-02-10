@@ -39,21 +39,18 @@ makeCacheMatrix <- function(x = numeric()) {
         # return a list. Each named element of the list is a function
         list(setMatrix = setMatrix, getMatrix = getMatrix, cacheInverse = cacheInverse, getInverse = getInverse)
 }
-
 # This function calculates the inverse of a "special" matrix created with "makeCacheMatrix"
-cacheSolve <- function(y, ...) {
+cacheSolve <- function(x, ...) {
         # get the cached value
-        inverse <- y$getInverse()
+        inverse <- x$getInverse()
         # if a cached value exists return it
-        if(!is.null(inverse)) {
-                message("getting cached data")
+        if(!is.null(inverse)) 
                 return(inverse)
         }
-        # otherwise get the matrix, caclulate the inverse and store it in
-        # the cache
-        data <- y$getMatrix()
-        inverse <- solve(data)
-        y$cacheInverse(inverse)
+        # otherwise get the matrix, caclulate the inverse and store it in cache
+        data_inverse <- x$getMatrix()
+        inverse <- solve(data_inverse)
+        x$cacheInverse(inverse)
         
         # return the inverse
         inverse
